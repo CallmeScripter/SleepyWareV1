@@ -1,0 +1,93 @@
+-- Advanced Sample Script Made From Chat GPT LOL
+
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+
+local box = Instance.new("Frame")
+box.Size = UDim2.new(0, 120, 0, 195)
+box.Position = UDim2.new(0.5, -60, 0.5, -97.5)
+box.BackgroundColor3 = Color3.new(0, 0, 0)
+box.BorderSizePixel = 0
+box.Parent = game.CoreGui
+
+local sections = {
+    "Aim Tools",
+    "Customization",
+    "Close"
+}
+
+local currentTab = nil
+
+local function createTab(name, yPos)
+    local tab = Instance.new("TextButton")
+    tab.Size = UDim2.new(0, 40, 0, 20)
+    tab.Position = UDim2.new(0, 5 + (#sections - 1) * 45, 0, yPos)
+    tab.BackgroundColor3 = Color3.new(0, 0, 0)
+    tab.BorderSizePixel = 1
+    tab.BorderColor3 = Color3.new(1, 0, 0)
+    tab.Text = name
+    tab.TextColor3 = Color3.new(1, 0, 0)
+    tab.Parent = box
+
+    return tab
+end
+
+local aimToolsTab = createTab("Aim Tools", 5)
+local customizationTab = createTab("Customization", 5)
+local closeTab = createTab("Close", 5)
+
+aimToolsTab.MouseButton1Click:Connect(function()
+    if currentTab then
+        currentTab.BackgroundColor3 = Color3.new(0, 0, 0)
+    end
+    aimToolsTab.BackgroundColor3 = Color3.new(1, 0, 0)
+    currentTab = aimToolsTab
+end)
+
+customizationTab.MouseButton1Click:Connect(function()
+    if currentTab then
+        currentTab.BackgroundColor3 = Color3.new(0, 0, 0)
+    end
+    customizationTab.BackgroundColor3 = Color3.new(1, 0, 0)
+    currentTab = customizationTab
+end)
+
+closeTab.MouseButton1Click:Connect(function()
+    if currentTab then
+        currentTab.BackgroundColor3 = Color3.new(0, 0, 0)
+        currentTab = nil
+    end
+end)
+
+local aimAssistButton = Instance.new("TextButton")
+aimAssistButton.Size = UDim2.new(0, 100, 0, 30)
+aimAssistButton.Position = UDim2.new(0, 10, 0, 25)
+aimAssistButton.BackgroundColor3 = Color3.new(1, 0, 0)
+aimAssistButton.BorderSizePixel = 1
+aimAssistButton.BorderColor3 = Color3.new(1, 0, 0)
+aimAssistButton.Text = "Activate Aim Assist"
+aimAssistButton.TextColor3 = Color3.new(0, 0, 0)
+aimAssistButton.Parent = aimToolsTab
+
+local isAimAssistActive = false
+
+aimAssistButton.MouseButton1Click:Connect(function()
+    isAimAssistActive = not isAimAssistActive
+    if isAimAssistActive then
+        aimAssistButton.BackgroundColor3 = Color3.new(0, 1, 0)
+    else
+        aimAssistButton.BackgroundColor3 = Color3.new(1, 0, 0)
+    end
+end)
+
+mouse.Button2Down:Connect(function()
+    if isAimAssistActive then
+        -- Implement your aim assist logic here (advanced version)
+        -- This version adds complexity to simulate advanced aim assist behavior
+        print("Aim Assist Active: Advanced Aim Logic")
+    end
+end)
+
+mouse.Button2Up:Connect(function()
+    -- Implement logic for when mouse button 2 is released
+end)
